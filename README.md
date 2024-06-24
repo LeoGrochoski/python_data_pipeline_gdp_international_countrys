@@ -2,9 +2,13 @@
 
 ![Imagem](./pics/pipeline.png)
 
-## Cenário de Projeto
+## Objetivo do Projeto
 
-Uma empresa internacional que pretende expandir os seus negócios em diferentes países do mundo e nos rescrutou. Você foi contratado como engenheiro de dados e tem a tarefa de criar um script automatizado que possa extrair a lista de todos os países na ordem de seus PIBs em bilhões de dólares (arredondado para 2 casas decimais), conforme registrado pelo Fundo Monetário Internacional (FMI). 
+Objetivo do Projeto: Engenharia de Dados com Python
+O objetivo deste projeto é aplicar e consolidar as habilidades adquiridas ao longo do curso de formação para Engenharia de Dados oferecido pela IBM. Neste curso, intitulado Python Project for Data Engineering, os participantes são desafiados a implementar uma pipeline completa de ETL (Extract, Transform, Load) utilizando Python.
 
-Como o FMI divulga esta avaliação duas vezes por ano, este código será utilizado pela organização para extrair a informação à medida que for atualizada.
+Como parte do cenário do projeto, uma empresa internacional, que está em expansão para diversos países, contratou você, um engenheiro de dados júnior, para criar um script automatizado. Este script tem como finalidade extrair, transformar e carregar dados de uma lista de países ordenados por seus PIBs em bilhões de dólares americanos, conforme reportado pelo Fundo Monetário Internacional (FMI). Este relatório é publicado duas vezes ao ano e o código desenvolvido será utilizado para capturar essas atualizações de forma eficiente.
 
+Através deste projeto, os participantes demonstram sua proficiência em técnicas essenciais de manipulação de dados, incluindo a extração de dados de múltiplas fontes, web scraping, utilização de APIs e preparação dos dados para análise em bancos de dados. Além de reforçar os conhecimentos em Python, este projeto proporciona uma valiosa experiência prática em um cenário realista, contribuindo significativamente para o portfólio profissional dos alunos.
+
+Este curso é uma continuação natural do Python for Data Science, AI and Development da IBM, sendo necessário que os participantes tenham uma base sólida em Python e manipulação de dados antes de iniciar este projeto. Ao final, os alunos terão mostrado sua capacidade de construir pipelines de dados robustas e eficientes, uma competência fundamental para qualquer engenheiro de dados.
