@@ -12,3 +12,17 @@ Como parte do cenário do projeto, uma empresa internacional, que está em expan
 Através deste projeto, os participantes demonstram sua proficiência em técnicas essenciais de manipulação de dados, incluindo a extração de dados de múltiplas fontes, web scraping, utilização de APIs e preparação dos dados para análise em bancos de dados. Além de reforçar os conhecimentos em Python, este projeto proporciona uma valiosa experiência prática em um cenário realista, contribuindo significativamente para o portfólio profissional dos alunos.
 
 Este curso é uma continuação natural do Python for Data Science, AI and Development da IBM, sendo necessário que os participantes tenham uma base sólida em Python e manipulação de dados antes de iniciar este projeto. Ao final, os alunos terão mostrado sua capacidade de construir pipelines de dados robustas e eficientes, uma competência fundamental para qualquer engenheiro de dados.
+
+### Pontos Práticos para Projeto
+
+1.  Escrever uma função de extração de dados para recuperar as informações relevantes do URL fornecido.
+
+2.  Transformar as informações disponíveis do PIB em 'Bilhões de dólares' de 'Milhões de dólares'.
+
+3.  Carregar as informações transformadas no arquivo CSV necessário e como um arquivo de banco de dados.
+
+4.  Execute a consulta necessária no banco de dados.
+
+5. Registrar o progresso do código com logs de data/hora apropriados.
+
+
