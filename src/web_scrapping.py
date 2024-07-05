@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from pandas import DataFrame
 import os
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
 
@@ -20,14 +21,14 @@ nome_csv: str = 'pib_paises.csv'
 def extracao_tabela(url):
     pagina = requests.get(url).text
     dados = BeautifulSoup(pagina,'html.parser')
-    df = pd.DataFrame(columns=['País', 'PIB'])
+    df = pd.DataFrame(columns=['Pais', 'PIB'])
     tabela = dados.find_all('tbody')
     rows = tabela[2].find_all('tr')
     for row in rows:
         col = row.find_all('td')
         if len(col)!=0:
             if col[0].find('a') is not None and '—' not in col[2]:
-                data_dict = {"País": col[0].a.contents[0],
+                data_dict = {"Pais": col[0].a.contents[0],
                              "PIB": col[2].contents[0]}
                 df1 = pd.DataFrame(data_dict, index=[0])
                 df = pd.concat([df,df1], ignore_index=True)
@@ -68,8 +69,25 @@ db_host = os.getenv('DB_HOST')
 db_user = os.getenv('DB_USER')
 db_password = os.getenv('DB_PASSWORD')
 db_name = os.getenv('DB_NAME')
+db_port = os.getenv('DB_PORT')
 
-engine = create_engine(f"mysql://{db_user}:{db_password}@{db_host}/{db_name}")
+def carrega_banco (host, user, password, db, port):
+    
+    str_conexao = f"mysql://{user}:{password}@{host}:{port}/{db}?allowPublicKeyRetrieval=true&useSSL=false"
+    print(f"Connection String: {str_conexao}")
+
+    engine = create_engine(str_conexao)
+    Conexao = sessionmaker(bind=engine)
+    conexao = Conexao()
+    return conexao
+
+conexao_banco = carrega_banco(db_host, db_user, db_password, db_name, db_port)
 
 
+cria_tabela = str(f'''CREATE TABLE Countries_by_GDP(
+               	Pais VARCHAR,
+               	PIB VARCHAR)
+                   ''')
 
+
+conexao_banco.execute(cria_tabela)

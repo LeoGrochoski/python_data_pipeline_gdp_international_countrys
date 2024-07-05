@@ -27,6 +27,9 @@ Este curso é uma continuação natural do Python for Data Science, AI and Devel
 
 ### Principais desafios do projeto
 
-
+- Realizar a localização da tabela com os dados de interesse via html;
+- Iterar pelas linhas trazendo os dados de forma correta e disponibilizar para as transformações;
+- Converter o formato do valor para poder transformar milhões para bilhões de dolares, reduzir para duas casas apos a virgula;
+- Criação do backup dos dados em .csv;
 
 ### Como rodar o projeto
