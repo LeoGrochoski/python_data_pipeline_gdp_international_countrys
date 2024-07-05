@@ -71,3 +71,5 @@ db_name = os.getenv('DB_NAME')
 
 engine = create_engine(f"mysql://{db_user}:{db_password}@{db_host}/{db_name}")
 
+
+

@@ -25,4 +25,8 @@ Este curso é uma continuação natural do Python for Data Science, AI and Devel
 
 5. Registrar o progresso do código com logs de data/hora apropriados.
 
+### Principais desafios do projeto
 
+
+
+### Como rodar o projeto
