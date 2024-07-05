@@ -84,7 +84,7 @@ def carrega_banco (host, user, password, db, port):
 conexao_banco = carrega_banco(db_host, db_user, db_password, db_name, db_port)
 
 
-cria_tabela = str(f'''CREATE TABLE Countries_by_GDP(
+cria_tabela = text(f'''CREATE TABLE Countries_by_GDP(
                	Pais VARCHAR,
                	PIB VARCHAR)
                    ''')
