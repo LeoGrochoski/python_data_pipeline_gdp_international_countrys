@@ -3,12 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 from pandas import DataFrame
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
 
 
-# Dados de conexão
+
+# Dados de conexão do webscrapping
 
 url: str = 'https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29'
 table_name: str = 'PIB_por_pais'
@@ -37,7 +35,6 @@ def extracao_tabela(url):
 
 # Trecho referente a transformação dos dados com pandas
 
-
 dados_tabela = extracao_tabela(url)
 
 dados_tabela["PIB"] = dados_tabela["PIB"].str.replace(",", "", 1).str.replace(",", ".").astype(float)
@@ -53,41 +50,9 @@ def salva_bkp_csv(diretorio_saida, nome_arquivo, df):
         os.makedirs(diretorio_saida)
 
     path_arquivo = os.path.join(diretorio_saida, nome_arquivo)
-
     df.to_csv(path_arquivo, index = False)
 
     print(f"Arquivo CSV '{nome_arquivo}' salvo com sucesso em '{diretorio_saida}'!")
 
 salva_bkp_csv(csv_bkp, nome_csv, dados_tabela)
 
-
-# Trecho referente ao carregamento dos dados
-
-load_dotenv()
-
-db_host = os.getenv('DB_HOST')
-db_user = os.getenv('DB_USER')
-db_password = os.getenv('DB_PASSWORD')
-db_name = os.getenv('DB_NAME')
-db_port = os.getenv('DB_PORT')
-
-def carrega_banco (host, user, password, db, port):
-    
-    str_conexao = f"mysql://{user}:{password}@{host}:{port}/{db}?allowPublicKeyRetrieval=true&useSSL=false"
-    print(f"Connection String: {str_conexao}")
-
-    engine = create_engine(str_conexao)
-    Conexao = sessionmaker(bind=engine)
-    conexao = Conexao()
-    return conexao
-
-conexao_banco = carrega_banco(db_host, db_user, db_password, db_name, db_port)
-
-
-cria_tabela = text(f'''CREATE TABLE Countries_by_GDP(
-               	Pais VARCHAR,
-               	PIB VARCHAR)
-                   ''')
-
-
-conexao_banco.execute(cria_tabela)
