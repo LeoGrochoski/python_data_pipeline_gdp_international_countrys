@@ -21,12 +21,6 @@ conexao = mysql.connector.connect(
 
 cursor = conexao.cursor()
 
-try:
-    conexao = engine.connect()
-    print("Conexão bem-sucedida!")
-except Exception as e:
-    print(f"Erro ao conectar: {e}")
-
 # Ao criar a tabela, se atentar em passar os tipos corretamente, inclusive o tamanho dos campos quando necessario
 # create_table = """
 #                   CREATE TABLE Countries_by_GDP (
@@ -41,6 +35,20 @@ except Exception as e:
 # print("Tabela Criada com sucesso!")
 
 
-df = pd.read_csv("C:\Lab\python_data_pipeline_gdp_international_countrys\backup\pib_paises.csv\pib_paises.csv")
+df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
 
-cursor.execute()
+insert_query = """
+    INSERT INTO Countries_by_GDP (Pais, PIB)
+    VALUES (%s, %s)
+"""
+
+try:
+    for index, row in df.iterrows():
+        cursor.execute(insert_query, (row["Pais"], row["PIB"]))
+    conexao.commit()
+    print("Dados importados com sucesso!")
+except mysql.connector.Error as err:
+    print(f"Erro ao inserir dados: {err}")
+finally:
+    cursor.close()
+    conexao.close()
