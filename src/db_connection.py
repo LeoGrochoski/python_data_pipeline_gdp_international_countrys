@@ -53,7 +53,7 @@ cursor = conexao.cursor()
 conexao.commit()
 
 
-select_table = """SELECT * FROM Countries_by_GDP"""
+select_table = """SELECT * FROM countries_by_gdp WHERE PIB >= 100"""
 
 try:
     cursor.execute(select_table)
