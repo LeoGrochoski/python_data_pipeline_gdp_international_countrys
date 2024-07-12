@@ -28,27 +28,43 @@ cursor = conexao.cursor()
 #                   PIB NUMERIC(15, 2)
 #                   );
 # """
-# cursor.execute(create_table)6
+# cursor.execute(create_table)
 #
 # conexao.commit()
 # 
 # print("Tabela Criada com sucesso!")
 
 
-df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
+# df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
 
-insert_query = """
-    INSERT INTO Countries_by_GDP (Pais, PIB)
-    VALUES (%s, %s)
-"""
+# insert_query = """
+#     INSERT INTO Countries_by_GDP (Pais, PIB)
+#     VALUES (%s, %s)
+# """
+
+# try:
+#     for index, row in df.iterrows():
+#         cursor.execute(insert_query, (row["Pais"], row["PIB"]))
+#     conexao.commit()
+#     print("Dados importados com sucesso!")
+# except mysql.connector.Error as err:
+#     print(f"Erro ao inserir dados: {err}")
+
+conexao.commit()
+
+
+select_table = """SELECT * FROM Countries_by_GDP"""
 
 try:
-    for index, row in df.iterrows():
-        cursor.execute(insert_query, (row["Pais"], row["PIB"]))
-    conexao.commit()
-    print("Dados importados com sucesso!")
+    cursor.execute(select_table)
+    retorno = cursor.fetchall()
+    for row in retorno:
+        print(row)
+    cursor.fetchall()
 except mysql.connector.Error as err:
-    print(f"Erro ao inserir dados: {err}")
+    print(f"Erro ao executar SELECT: {err}")
+except Exception as e:
+    print(f"Erro inesperado: {e}")
 finally:
     cursor.close()
     conexao.close()
