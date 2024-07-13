@@ -12,6 +12,7 @@ logging.basicConfig(
     format = "%(asctime)s - %(levelname)s - %(message)s"
     )
 
+# carregando variaveis 
 load_dotenv()
 
 db_host = os.getenv('DB_HOST')
@@ -20,6 +21,7 @@ db_password = os.getenv('DB_PASSWORD')
 db_name = os.getenv('DB_NAME')
 db_port = os.getenv('DB_PORT')
 
+# conexão com o banco
 conexao = mysql.connector.connect(
     user = db_user,
     password = db_password,
@@ -39,31 +41,34 @@ create_table = """
                   PIB NUMERIC(15, 2)
                   );
 """
-# 
-# cursor.execute(create_table)
-# logging.info(f"{datetime.now()} Tabela Criada com sucesso!")
-# logging.error(f"{datetime.now()}")
-#
-# conexao.commit()
 
+cursor.execute(create_table)
+logging.info(f"{datetime.now()} Tabela Criada com sucesso!")
+logging.error(f"{datetime.now()}")
 
-# df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
+conexao.commit()
+
+# Importando csv do backup para criação do dataframe
+df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
 
 insert_query = """
     INSERT INTO Countries_by_GDP (Pais, PIB)
     VALUES (%s, %s)
 """
 
-# try:
-#     for index, row in df.iterrows():
-#         cursor.execute(insert_query, (row["Pais"], row["PIB"]))
-#     conexao.commit()
-#     print("{datetime.now()} Dados importados com sucesso!")
-# except mysql.connector.Error as err:
-#     logging.error(f"{datetime.now()} Erro ao inserir dados: {err}")
-#
-# conexao.commit()
+# Inserindo os dados na tabela do banco
 
+try:
+    for index, row in df.iterrows():
+        cursor.execute(insert_query, (row["Pais"], row["PIB"]))
+    conexao.commit()
+    print("Dados importados com sucesso!")
+except mysql.connector.Error as err:
+    logging.error(f"Erro ao inserir dados: {err}")
+
+conexao.commit()
+
+# Selecionando paises com PIB maior que 100 bilhões.
 
 select_table = """SELECT * FROM countries_by_gdp WHERE PIB >= 100"""
 
@@ -73,8 +78,8 @@ try:
     for row in retorno:
         print(row)
     cursor.fetchall()
-except mysql.connector.Error as err:
-    logging.error(f"Erro ao executar SELECT: {err}")
+except mysql.connector.Error as er:
+    logging.error(f"Erro ao executar SELECT: {er}")
 except Exception as e:
     print(f"Erro inesperado: {e}")
 finally:

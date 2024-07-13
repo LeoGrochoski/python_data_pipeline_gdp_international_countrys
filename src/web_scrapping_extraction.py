@@ -43,9 +43,7 @@ def extracao_tabela(url):
 # Trecho referente a transformação dos dados com pandas
 
 dados_tabela = extracao_tabela(url)
-logging.info(f"Extracao de dados realizada: 
-             {dados_tabela}"
-             )
+logging.info(f"Extracao de dados realizada:{dados_tabela}")
 
 dados_tabela["PIB"] = dados_tabela["PIB"].str.replace(",", "", 1).str.replace(",", ".").astype(float)
 

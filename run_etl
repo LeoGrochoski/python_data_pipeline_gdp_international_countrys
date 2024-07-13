@@ -1,0 +1,8 @@
+#!/bin/bash
+cd src
+
+python web_scrapping_extraction.py
+
+sleep 20
+
+python db_load.py

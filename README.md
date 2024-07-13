@@ -33,3 +33,20 @@ Este curso é uma continuação natural do Python for Data Science, AI and Devel
 - Criação do backup dos dados em .csv;
 
 ### Como rodar o projeto
+
+1. Acessar o repositorio do github localizado [aqui](https://github.com/LeoGrochoski/python_data_pipeline_gdp_international_countrys) para verificar mais sobre a documentação.
+
+2. Efetuar o clone do repositorio.
+~~~
+git clone https://github.com/LeoGrochoski/python_data_pipeline_gdp_international_countrys.git
+~~~
+
+3. Ativar o ambiente virtual.
+~~~
+source .venv/Scripts/activate
+~~~
+
+4. Instalar as bibliotecas necessarias.
+~~~
+pip install requirements.txt
+~~~
