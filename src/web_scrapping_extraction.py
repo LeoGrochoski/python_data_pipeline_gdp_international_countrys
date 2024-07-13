@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 logging.basicConfig(
-    filename = "../log/logs.log", 
+    filename = "../log/logs_webscrapping.log", 
     level = logging.INFO)
 
 # Dados de conexão do webscrapping
@@ -22,7 +22,7 @@ nome_csv: str = 'pib_paises.csv'
 
 def extracao_tabela(url):
     pagina = requests.get(url).text
-    logging.info("Requisição realizada!")
+    logging.info("Requisicao realizada!")
     dados = BeautifulSoup(pagina,'html.parser')
     df = pd.DataFrame(columns=['Pais', 'PIB'])
     tabela = dados.find_all('tbody')
@@ -41,13 +41,13 @@ def extracao_tabela(url):
 # Trecho referente a transformação dos dados com pandas
 
 dados_tabela = extracao_tabela(url)
-logging.info(f" {datetime.now()} Extracao de dados realizada: {dados_tabela}")
+logging.info(f"{datetime.now()} Extracao de dados realizada: {dados_tabela}")
 
 dados_tabela["PIB"] = dados_tabela["PIB"].str.replace(",", "", 1).str.replace(",", ".").astype(float)
 
-dados_tabela["PIB"] = dados_tabela['PIB'] / 1000 
+dados_tabela["PIB"] = dados_tabela['PIB'] / 1000 # conversao para Bilhões
 
-dados_tabela["PIB"] = dados_tabela["PIB"].map('{:.2f}'.format)
+dados_tabela["PIB"] = dados_tabela["PIB"].map('{:.2f}'.format) # Formatando as casas decimais
 
 # Criação de arquivo csv como backup dos dados
 
@@ -58,7 +58,7 @@ def salva_bkp_csv(diretorio_saida, nome_arquivo, df):
     path_arquivo = os.path.join(diretorio_saida, nome_arquivo)
     df.to_csv(path_arquivo, index = False)
 
-    logging.info(f"Arquivo CSV '{nome_arquivo}' salvo com sucesso em '{diretorio_saida}'!")
+    logging.info(f"{datetime.now()} Arquivo backup CSV '{nome_arquivo}' criado e salvo com sucesso em '{diretorio_saida}'!")
 
 salva_bkp_csv(csv_bkp, nome_csv, dados_tabela)
 
