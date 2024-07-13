@@ -8,7 +8,9 @@ from datetime import datetime
 
 logging.basicConfig(
     filename = "../log/logs_webscrapping.log", 
-    level = logging.INFO)
+    level = logging.INFO,
+    format = "%(asctime)s - %(levelname)s - %(message)s"
+    )
 
 # Dados de conexão do webscrapping
 
@@ -41,7 +43,9 @@ def extracao_tabela(url):
 # Trecho referente a transformação dos dados com pandas
 
 dados_tabela = extracao_tabela(url)
-logging.info(f"{datetime.now()} Extracao de dados realizada: {dados_tabela}")
+logging.info(f"Extracao de dados realizada: 
+             {dados_tabela}"
+             )
 
 dados_tabela["PIB"] = dados_tabela["PIB"].str.replace(",", "", 1).str.replace(",", ".").astype(float)
 
@@ -58,7 +62,7 @@ def salva_bkp_csv(diretorio_saida, nome_arquivo, df):
     path_arquivo = os.path.join(diretorio_saida, nome_arquivo)
     df.to_csv(path_arquivo, index = False)
 
-    logging.info(f"{datetime.now()} Arquivo backup CSV '{nome_arquivo}' criado e salvo com sucesso em '{diretorio_saida}'!")
+    logging.info(f"Arquivo backup CSV '{nome_arquivo}' criado e salvo com sucesso em '{diretorio_saida}'!")
 
 salva_bkp_csv(csv_bkp, nome_csv, dados_tabela)
 
