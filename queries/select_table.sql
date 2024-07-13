@@ -1,0 +1,1 @@
+SELECT * FROM Countries_by_GDP
