@@ -22,16 +22,18 @@ db_name = os.getenv('DB_NAME')
 db_port = os.getenv('DB_PORT')
 
 # conexão com o banco
-conexao = mysql.connector.connect(
-    user = db_user,
-    password = db_password,
-    host = db_host,
-    database = db_name
-)
+try: 
+    conexao = mysql.connector.connect(
+        user = db_user,
+        password = db_password,
+        host = db_host,
+        database = db_name
+    )
+    cursor = conexao.cursor()
+    logging.info(f"Conexão realizada!")
+except mysql.connector.Error as conn_err:
+    logging.critical(f"Erro ao conectar com o banco: {conn_err}")
 
-cursor = conexao.cursor()
-logging.info(f"Conexão realizada!")
-logging.error()
 
 # Ao criar a tabela, se atentar em passar os tipos corretamente, inclusive o tamanho dos campos quando necessario
 
@@ -41,12 +43,12 @@ create_table = """
                   PIB NUMERIC(15, 2)
                   );
 """
-
-cursor.execute(create_table)
-logging.info(f"{datetime.now()} Tabela Criada com sucesso!")
-logging.error(f"{datetime.now()}")
-
-conexao.commit()
+try:
+    cursor.execute(create_table)
+    logging.info(f"Tabela Criada com sucesso!")
+    conexao.commit()
+except mysql.connector.Error as cr_tab_err:
+    logging.error(f"Falha ao criar a tabela devido: {cr_tab_err}")
 
 # Importando csv do backup para criação do dataframe
 df = pd.read_csv('../backup/pib_paises.csv/pib_paises.csv')
@@ -61,10 +63,10 @@ insert_query = """
 try:
     for index, row in df.iterrows():
         cursor.execute(insert_query, (row["Pais"], row["PIB"]))
+    logging.info("Dados importados com sucesso!")
     conexao.commit()
-    print("Dados importados com sucesso!")
-except mysql.connector.Error as err:
-    logging.error(f"Erro ao inserir dados: {err}")
+except mysql.connector.Error as imp_err:
+    logging.error(f"Erro ao inserir dados: {imp_err}")
 
 conexao.commit()
 
@@ -76,12 +78,12 @@ try:
     cursor.execute(select_table)
     retorno = cursor.fetchall()
     for row in retorno:
-        print(row)
+        logging.info(f"{row}")
     cursor.fetchall()
 except mysql.connector.Error as er:
     logging.error(f"Erro ao executar SELECT: {er}")
 except Exception as e:
-    print(f"Erro inesperado: {e}")
+    logging.error(f"Erro inesperado: {e}")
 finally:
     cursor.close()
     conexao.close()

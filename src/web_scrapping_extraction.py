@@ -24,7 +24,7 @@ nome_csv: str = 'pib_paises.csv'
 
 def extracao_tabela(url):
     pagina = requests.get(url).text
-    logging.info("Requisicao realizada!")
+    logging.info("Requisicao web realizada!")
     dados = BeautifulSoup(pagina,'html.parser')
     df = pd.DataFrame(columns=['Pais', 'PIB'])
     tabela = dados.find_all('tbody')

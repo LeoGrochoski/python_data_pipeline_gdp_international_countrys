@@ -1,0 +1,16 @@
+2024-07-13 00:51:15,644 - INFO - Requisicao web realizada!
+2024-07-13 00:51:15,902 - INFO - Extracao de dados realizada:                 Pais         PIB
+0       United States  26,854,599
+1               China  19,373,586
+2               Japan   4,409,738
+3             Germany   4,308,854
+4               India   3,736,882
+..                ...         ...
+186  Marshall Islands         291
+187             Palau         262
+188          Kiribati         248
+189             Nauru         151
+190            Tuvalu          65
+
+[191 rows x 2 columns]
+2024-07-13 00:51:15,902 - INFO - Arquivo backup CSV 'pib_paises.csv' criado e salvo com sucesso em '../backup/pib_paises.csv'!

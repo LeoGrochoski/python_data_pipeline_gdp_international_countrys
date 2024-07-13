@@ -3,6 +3,6 @@ cd src
 
 python web_scrapping_extraction.py
 
-sleep 20
+sleep 5
 
 python db_load.py

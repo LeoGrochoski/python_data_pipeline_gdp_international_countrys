@@ -37,16 +37,25 @@ Este curso é uma continuação natural do Python for Data Science, AI and Devel
 1. Acessar o repositorio do github localizado [aqui](https://github.com/LeoGrochoski/python_data_pipeline_gdp_international_countrys) para verificar mais sobre a documentação.
 
 2. Efetuar o clone do repositorio.
-~~~
+~~~bash
 git clone https://github.com/LeoGrochoski/python_data_pipeline_gdp_international_countrys.git
 ~~~
 
 3. Ativar o ambiente virtual.
-~~~
+~~~bash
 source .venv/Scripts/activate
 ~~~
 
 4. Instalar as bibliotecas necessarias.
-~~~
+~~~python
 pip install requirements.txt
 ~~~
+
+5. rodar o comando para iniciar o etl.
+~~~bash
+.run_etl
+~~~
+
+6. Para verificar se o etl ocorreu conforme deve, verificar os logs
+* O arquivo logs_web_scrapping_extract.logs registra os logs da extração e transformação dos dados.
+* O arquivos logs_db_load.log registra os logs do carregamento dos dados do banco e a seleção dos dados conforme regra.
