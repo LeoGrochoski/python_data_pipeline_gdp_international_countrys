@@ -4,10 +4,9 @@ from dotenv import load_dotenv
 from urllib.parse import quote_plus
 import mysql.connector
 import logging
-from datetime import datetime
 
 logging.basicConfig(
-    filename = "../log/logs_db_load.log", 
+    filename = "../log/code_logs.log", 
     level = logging.INFO,
     format = "%(asctime)s - %(levelname)s - %(message)s"
     )
@@ -21,6 +20,8 @@ db_password = os.getenv('DB_PASSWORD')
 db_name = os.getenv('DB_NAME')
 db_port = os.getenv('DB_PORT')
 
+logging.info("conexao SQL iniciada")
+
 # conexão com o banco
 try: 
     conexao = mysql.connector.connect(
@@ -30,7 +31,7 @@ try:
         database = db_name
     )
     cursor = conexao.cursor()
-    logging.info(f"Conexão realizada!")
+    logging.info(f"Conexao com Banco realizada, iniciando execucao das queries!")
 except mysql.connector.Error as conn_err:
     logging.critical(f"Erro ao conectar com o banco: {conn_err}")
 
@@ -45,7 +46,7 @@ create_table = """
 """
 try:
     cursor.execute(create_table)
-    logging.info(f"Tabela Criada com sucesso!")
+    logging.info(f"Tabela Criada com sucesso, iniciando carregamento dos dados!")
     conexao.commit()
 except mysql.connector.Error as cr_tab_err:
     logging.error(f"Falha ao criar a tabela devido: {cr_tab_err}")
@@ -72,14 +73,14 @@ conexao.commit()
 
 # Selecionando paises com PIB maior que 100 bilhões.
 
+
 select_table = """SELECT * FROM countries_by_gdp WHERE PIB >= 100"""
 
 try:
     cursor.execute(select_table)
     retorno = cursor.fetchall()
     for row in retorno:
-        logging.info(f"{row}")
-    cursor.fetchall()
+        print(row)
 except mysql.connector.Error as er:
     logging.error(f"Erro ao executar SELECT: {er}")
 except Exception as e:
@@ -87,3 +88,4 @@ except Exception as e:
 finally:
     cursor.close()
     conexao.close()
+    logging.info("Conexao fechada")

@@ -1,1 +1,1 @@
-SELECT * FROM Countries_by_GDP
+SELECT * FROM Countries_by_GDP WHERE PIB >= 100

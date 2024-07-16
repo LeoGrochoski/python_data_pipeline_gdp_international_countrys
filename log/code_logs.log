@@ -1,0 +1,10 @@
+2024-07-16 15:00:12,055 - INFO - Iniciando processo de ETL
+2024-07-16 15:00:13,104 - INFO - Requisicao web realizada. Iniciando processo de extracao dos dados!
+2024-07-16 15:00:13,473 - INFO - Extracao de dados realizada:
+2024-07-16 15:00:13,475 - INFO - Trandormacao dos dados completo. Iniciando processo de carregamento dos dados
+2024-07-16 15:00:13,479 - INFO - Arquivo backup CSV 'pib_paises.csv' criado e salvo com sucesso em '../backup/pib_paises.csv'!
+2024-07-16 15:00:19,499 - INFO - conexao SQL iniciada
+2024-07-16 15:00:19,562 - INFO - Conexao com Banco realizada, iniciando execucao das queries!
+2024-07-16 15:00:19,595 - INFO - Tabela Criada com sucesso, iniciando carregamento dos dados!
+2024-07-16 15:00:19,638 - INFO - Dados importados com sucesso!
+2024-07-16 15:00:19,648 - INFO - Conexao fechada

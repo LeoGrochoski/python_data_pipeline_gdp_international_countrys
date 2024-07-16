@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 logging.basicConfig(
-    filename = "../log/logs_webscrapping.log", 
+    filename = "../log/code_logs.log", 
     level = logging.INFO,
     format = "%(asctime)s - %(levelname)s - %(message)s"
     )
@@ -19,12 +19,13 @@ table_name: str = 'PIB_por_pais'
 csv_bkp: str = '../backup/pib_paises.csv'
 nome_csv: str = 'pib_paises.csv'
 
+logging.info("Iniciando processo de ETL")
 
 # Trecho referente a extração dos dados via webscrapping
 
 def extracao_tabela(url):
     pagina = requests.get(url).text
-    logging.info("Requisicao web realizada!")
+    logging.info("Requisicao web realizada. Iniciando processo de extracao dos dados!")
     dados = BeautifulSoup(pagina,'html.parser')
     df = pd.DataFrame(columns=['Pais', 'PIB'])
     tabela = dados.find_all('tbody')
@@ -43,13 +44,14 @@ def extracao_tabela(url):
 # Trecho referente a transformação dos dados com pandas
 
 dados_tabela = extracao_tabela(url)
-logging.info(f"Extracao de dados realizada:{dados_tabela}")
+
+logging.info(f"Extracao de dados realizada:")
 
 dados_tabela["PIB"] = dados_tabela["PIB"].str.replace(",", "", 1).str.replace(",", ".").astype(float)
-
 dados_tabela["PIB"] = dados_tabela['PIB'] / 1000 # conversao para Bilhões
-
 dados_tabela["PIB"] = dados_tabela["PIB"].map('{:.2f}'.format) # Formatando as casas decimais
+
+logging.info("Trandormacao dos dados completo. Iniciando processo de carregamento dos dados")
 
 # Criação de arquivo csv como backup dos dados
 
